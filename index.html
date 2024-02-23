@@ -89,13 +89,6 @@
         .form-links a:hover {
             text-decoration: underline;
         }
-
-        /* Adjusted password field */
-        #password {
-            width: calc(100% - 25px);
-            /* Adjusted width to account for the toggle button */
-        }
-
         /* WhatsApp icon */
         .whatsapp-icon {
             position: fixed;
@@ -121,8 +114,6 @@
                     pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}"
                     title="Password must contain at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one symbol"
                     required>
-                <span id="togglePassword"
-                    style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); cursor: pointer;">👁️</span>
             </div>
             <button type="button">Regjistrohu</button>
             <div class="form-links">
