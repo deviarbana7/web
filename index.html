@@ -3,96 +3,100 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Regjistrimi</title>
     <style>
         body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f0f0f0;
-}
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
 
-form {
-    width: 90%; /* Adjusted width for responsiveness */
-    max-width: 600px; /* Limit maximum width */
-    display: flex;
-    flex-wrap: wrap; /* Allow elements to wrap */
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+        form {
+            width: 600px;
+            display: flex;
+            flex-wrap: wrap;
+            /* Allow elements to wrap */
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-.form-content {
-    width: 100%; /* Adjusted width for responsiveness */
-    box-sizing: border-box;
-    padding-right: 20px;
-}
+        .form-content {
+            width: 48%;
+            /* Adjusted width for two columns */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-right: 20px;
+            box-sizing: border-box;
+        }
 
-.form-content label,
-.form-content input {
-    margin-bottom: 15px;
-    width: 100%;
-}
+        .form-content label,
+        .form-content input {
+            margin-bottom: 15px;
+            width: 100%;
+        }
 
-.form-content input {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-}
+        .form-content input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
 
-.form-content button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px;
-    cursor: pointer;
-    width: 100%;
-}
+        .form-content button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+            width: 100%;
+        }
 
-.form-content button:hover {
-    background-color: #0056b3;
-}
+        .form-content button:hover {
+            background-color: #0056b3;
+        }
 
-.form-img {
-    width: 100%; /* Adjusted width for responsiveness */
-    height: auto;
-}
+        .form-img {
+            width: 200px;
+            height: auto;
+        }
 
-.form-links {
-    width: 100%;
-    /* Full width */
-    text-align: center;
-    /* Center align */
-    margin-top: 10px;
-    /* Adjust margin */
-}
+        .form-links {
+            width: 100%;
+            /* Full width */
+            text-align: center;
+            /* Center align */
+            margin-top: 10px;
+            /* Adjust margin */
+        }
 
-.form-links a {
-    color: #007bff;
-    text-decoration: none;
-}
+        .form-links a {
+            color: #007bff;
+            text-decoration: none;
+        }
 
-.form-links a:hover {
-    text-decoration: underline;
-}
+        .form-links a:hover {
+            text-decoration: underline;
+        }
 
-/* WhatsApp icon */
-.whatsapp-icon {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    cursor: pointer;
-}
-
+        /* WhatsApp icon */
+        .whatsapp-icon {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            cursor: pointer;
+        }
     </style>
 </head>
 
