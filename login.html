@@ -19,6 +19,9 @@
         form {
             width: 600px;
             display: flex;
+            flex-wrap: wrap;
+            /* Allow elements to wrap */
+            justify-content: space-between;
             align-items: center;
             padding: 20px;
             border: 1px solid #ccc;
@@ -27,13 +30,14 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        button {
-            margin-bottom: 20px;
-        }
-
         .form-content {
-            flex: 1;
+            width: 48%;
+            /* Adjusted width for two columns */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             padding-right: 20px;
+            box-sizing: border-box;
         }
 
         .form-content label,
@@ -64,11 +68,31 @@
         }
 
         .form-img {
+            position: relative;
             width: 200px;
-            /* Adjusted for the same size as all fields combined */
             height: auto;
+            right: 35px;
         }
 
+        .form-links {
+            width: 100%;
+            /* Full width */
+            text-align: center;
+            /* Center align */
+            margin-top: 10px;
+            /* Adjust margin */
+        }
+
+        .form-links a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .form-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* WhatsApp icon */
         .whatsapp-icon {
             position: fixed;
             bottom: 20px;
@@ -86,7 +110,9 @@
             <label for="password">Password:</label>
             <input type="password" id="password" name="password">
             <button type="button">Login</button>
-            <a href="index.html"><button type="button">Regjistrohu</button></a>
+            <div class="form-links">
+                Don't have an account?<a href="index.html">Regjistrohu</a>
+            </div>
         </div>
         <img class="form-img" src="download (1).png" alt="umsh">
     </form>

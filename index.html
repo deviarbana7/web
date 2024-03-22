@@ -68,8 +68,10 @@
         }
 
         .form-img {
+            position: relative;
             width: 200px;
             height: auto;
+            right: 35px;
         }
 
         .form-links {
@@ -98,14 +100,6 @@
             cursor: pointer;
         }
     </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("#btn2").click(function () {
-                $("#data").append("<tr><td>" + $("#emri").val() + "</td>" + "<td>" + $("#mbiemri").val() + "</td>" + "<td>" + $("#email").val() + "</td></tr>");
-            });
-        });
-    </script>
 </head>
 
 <body>
@@ -125,18 +119,10 @@
             <div class="form-links">
                 You already have an account?<a href="login.html">Login</a>
             </div>
-            <button id="btn2">Show Value</button>
         </div>
         <img class="form-img" src="download (1).png" alt="umsh">
     </form>
-    <table id="data">
-        <tr>
-            <th>Emri</th>
-            <th>Mbiemri</th>
-            <th>Email</th>
-        </tr>
-    </table>
-
+    <!-- WhatsApp Icon -->
     <a class="whatsapp-icon" href="https://wa.me/+355674930586">
         <img src="1298775_whatsapp_chat_sms_social media_talk_icon.png" alt="WhatsApp">
     </a>
