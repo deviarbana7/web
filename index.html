@@ -127,7 +127,7 @@
             left: 20px;
             cursor: pointer;
         }
-         @media (max-width: 768px) {
+        @media (max-width: 768px) {
             /* Adjust form width for smaller screens */
             form {
                 width: 90%;
@@ -139,7 +139,9 @@
             }
 
             .form-img {
-                display: none; /* Hide image on smaller screens */
+                width: 150px; /* Adjust image width for smaller screens */
+                position: static; /* Reset position */
+                margin-top: 20px; /* Add margin for spacing */
             }
         }
     </style>
