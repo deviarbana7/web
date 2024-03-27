@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Login</title>
     <style>
         body {
@@ -77,11 +78,8 @@
 
         .form-links {
             width: 100%;
-            /* Full width */
             text-align: center;
-            /* Center align */
             margin-top: 10px;
-            /* Adjust margin */
         }
 
         .form-links a {
@@ -104,13 +102,13 @@
 </head>
 
 <body>
-    <form>
+    <form action="login.php" method="post" id="retrieveData">
         <div class="form-content">
             <label for="email">Email:</label>
             <input type="email" id="email" name="email">
             <label for="password">Password:</label>
             <input type="password" id="password" name="password">
-            <button type="button">Login</button>
+            <button type="submit">Login</button>
             <div class="form-links">
                 Don't have an account?<a href="index.html">Regjistrohu</a>
             </div>
@@ -120,6 +118,31 @@
     <a class="whatsapp-icon" href="https://wa.me/+355674930586">
         <img src="1298775_whatsapp_chat_sms_social media_talk_icon.png" alt="WhatsApp">
     </a>
+    <script>
+        $(document).ready(function () {
+            $('#retrieveData').submit(function (e) {
+                e.preventDefault(); // Prevent form submission
+
+                // Get form data
+                var formData = $(this).serialize();
+
+                // Send AJAX request to PHP script
+                $.ajax({
+                    type: 'POST',
+                    url: 'login.php',
+                    data: formData,
+                    success: function (response) {
+                        // Display success message
+                        alert(response);
+                    },
+                    error: function (xhr, status, error) {
+                        // Display error message
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
