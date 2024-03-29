@@ -4,5 +4,11 @@ $username = "root";
 $password = ""; 
 $database = "prov";
 
-$con = mysqli_connect($servername, $username, $password, $database) or die('Provo perseri');
+// Create connection
+$con = new mysqli($servername, $username, $password, $database);
+
+// Check connection
+if ($con->connect_error) {
+    die("Connection failed: " . $con->connect_error);
+}
 ?>

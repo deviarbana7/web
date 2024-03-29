@@ -133,7 +133,12 @@
                     data: formData,
                     success: function (response) {
                         // Display success message
-                        alert(response);
+                        if (response.trim() == "Data inserted successfully") {
+                            alert("Login successful!");
+                            window.location.href = "jo.html";
+                        } else {
+                            alert(response);
+                        }
                     },
                     error: function (xhr, status, error) {
                         // Display error message
@@ -143,6 +148,7 @@
             });
         });
     </script>
+
 </body>
 
 </html>
