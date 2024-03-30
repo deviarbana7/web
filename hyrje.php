@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION["users"])) {
+   header("Location: login.php");
+}
+?>
+
 <!doctype html>
 <html>
 
@@ -12,6 +19,7 @@
     <p>
         Endri123
     </p>
+    <a href="logout.php" class="btn btn-warning">Logout</a>
 </body>
 
 </html>
