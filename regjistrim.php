@@ -4,19 +4,33 @@ require("lidhje.php");
 $emri = $_POST['Emri'];
 $mbiemri = $_POST['Mbiemri'];
 $email = $_POST['Email'];
-$pass = password_hash($_POST['Password'], PASSWORD_DEFAULT); // Hash password
-// Prepare SQL statement to prevent SQL injection
-$stmt = $con->prepare("INSERT INTO users (emri, mbiemri, email, password) VALUES (?, ?, ?, ?)");
-$stmt->bind_param("ssss", $emri, $mbiemri, $email, $pass);
+$password = password_hash($_POST['Password'], PASSWORD_DEFAULT); // Hash password
 
-// Execute SQL statement
-if ($stmt->execute()) {
-    echo "Data inserted successfully";
+// Check if the email already exists in the database
+$email_check_query = "SELECT * FROM users WHERE email=?";
+$stmt = $con->prepare($email_check_query);
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    // Email already exists, send error message
+    echo "This email is already registered. Please use a different email.";
 } else {
-    echo "Error: " . $stmt->error;
+    // Prepare SQL statement to insert new user
+    $insert_query = "INSERT INTO users (emri, mbiemri, email, password) VALUES (?, ?, ?, ?)";
+    $stmt = $con->prepare($insert_query);
+    $stmt->bind_param("ssss", $emri, $mbiemri, $email, $password);
+
+    // Execute SQL statement to insert new user
+    if ($stmt->execute()) {
+        echo "Data inserted successfully";
+    } else {
+        echo "Error: " . $stmt->error;
+    }
 }
 
 // Close database connection
+$stmt->close();
 $con->close();
 ?>
-

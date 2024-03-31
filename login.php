@@ -2,7 +2,7 @@
 require("lidhje.php");
 session_start();
 if(isset($_SESSION['user'])){
- header("location:hyrje.php");
+ header("location:hyrje.html");
  die();
 }
 if (isset($_POST["Login"])) {
@@ -19,7 +19,7 @@ if (isset($_POST["Login"])) {
         if (password_verify($pass, $user["Password"])) {
             session_start();
             $_SESSION["user"] = "yes";
-            header("Location:hyrje.php");
+            header("Location:hyrje.html");
             die();
         } else {
             $message = "Password does not match";
