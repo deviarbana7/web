@@ -1,31 +1,36 @@
 <?php
 require("lidhje.php");
 session_start();
-if(isset($_SESSION['users'])){
+if(isset($_SESSION['user'])){
  header("location:hyrje.php");
  die();
 }
 if (isset($_POST["Login"])) {
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-     require_once "database.php";
-     $sql = "SELECT * FROM users WHERE email = '$email'";
-     $result = mysqli_query($conn, $sql);
-     $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
-     if ($user) {
-         if (password_verify($password, $user["password"])) {
-             session_start();
-             $_SESSION["user"] = "yes";
-             header("Location: hyrje.php");
-             die();
-         }else{
-             echo "<div class='alert alert-danger'>Password does not match</div>";
-         }
-     }else{
-         echo "<div class='alert alert-danger'>Email does not match</div>";
-     }
- }
+    $email = $_POST["Email"];
+    $pass = $_POST["Password"];
+    require_once "lidhje.php";
+    $sql = "SELECT * FROM users WHERE email = '$email'";
+    $result = mysqli_query($con, $sql);
+    $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
+    if ($user) {
+        // Hash the password entered in the login form
+        $hashed_password_login = password_hash($pass, PASSWORD_DEFAULT);
+        // Compare the hashed password from the login form with the hashed password stored in the database
+        if (password_verify($pass, $user["Password"])) {
+            session_start();
+            $_SESSION["user"] = "yes";
+            header("Location:hyrje.php");
+            die();
+        } else {
+            $message = "Password does not match";
+        }
+    } else {
+        $message = "Email does not match";
+    }
+}
 ?>
+
+
 
 
 <!DOCTYPE html>
@@ -35,7 +40,6 @@ if (isset($_POST["Login"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Login</title>
     <style>
         body {
@@ -132,12 +136,12 @@ if (isset($_POST["Login"])) {
 </head>
 
 <body>
-    <form method="post" id="retrieveData">
+    <form method="post">
         <div class="form-content">
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email">
+            <input type="email" id="email" name="Email">
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password">
+            <input type="password" id="password" name="Password">
             <button type="submit" name="Login" value="Login">Login</button>
             <div class="form-links">
                 Don't have an account?<a href="index.html">Regjistrohu</a>
@@ -148,36 +152,12 @@ if (isset($_POST["Login"])) {
     <a class="whatsapp-icon" href="https://wa.me/+355674930586">
         <img src="1298775_whatsapp_chat_sms_social media_talk_icon.png" alt="WhatsApp">
     </a>
+
+<?php if(isset($message)): ?>
     <script>
-        $(document).ready(function () {
-            $('#retrieveData').submit(function (e) {
-                e.preventDefault(); // Prevent form submission
-
-                // Get form data
-                var formData = $(this).serialize();
-
-                // Send AJAX request to PHP script
-                $.ajax({
-                    type: 'POST',
-                    url: 'login.php',
-                    data: formData,
-                    success: function (response) {
-                        // Display success message
-                        if (response.trim() == "Data inserted successfully") {
-                            alert("Login successful!");
-                            window.location.href = "jo.html";
-                        } else {
-                            alert(response);
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        // Display error message
-                        console.error(xhr.responseText);
-                    }
-                });
-            });
-        });
+        alert("<?php echo $message; ?>");
     </script>
+<?php endif; ?>
 
 </body>
 
