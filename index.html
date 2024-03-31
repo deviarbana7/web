@@ -56,6 +56,29 @@
             box-sizing: border-box;
         }
 
+        .input-box {
+            position: relative;
+            width: 100%;
+        }
+
+        .input-box input[type="password"] {
+            margin-bottom: 15px;
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .input-box img {
+            position: absolute;
+            top: 52.5%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            width: 20px;
+            /* Adjusted size of the eye icon */
+        }
 
         .form-content button {
             background-color: #007bff;
@@ -138,10 +161,14 @@
             <input type="text" id="mbiemri" name="Mbiemri">
             <label for="email">Email:</label>
             <input type="email" id="email" name="Email">
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}"
-                title="Password must contain at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one symbol"
-                required>
+            <div class="input-box">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="Password"
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}"
+                    title="Password must contain at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one symbol"
+                    required>
+                <img src="eye-close.png" id="eyeicon">
+            </div>
             <button type="submit" class="button" value="submit" name="submit">Regjistrohu</button>
             <div class="form-links">
                 You already have an account?<a href="login.php">Login</a>
@@ -154,6 +181,19 @@
         <img src="1298775_whatsapp_chat_sms_social media_talk_icon.png" alt="WhatsApp">
     </a>
     <script>
+        let eyeicon = document.getElementById("eyeicon");
+        let password = document.getElementById("password");
+
+        eyeicon.onclick = function () {
+            if (password.type == "password") {
+                password.type = "text";
+                eyeicon.src = "eye-open.png"
+            } else {
+                password.type = "password";
+                eyeicon.src = "eye-close.png"
+            }
+        };
+
         $(document).ready(function () {
             $('#submitData').submit(function (e) {
                 e.preventDefault(); // Prevent form submission

@@ -65,7 +65,30 @@ if (isset($_POST["Login"])) {
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+        .input-box {
+            position: relative;
+            width: 100%;
+        }
 
+        .input-box input[type="password"] {
+            margin-bottom: 15px;
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .input-box img {
+            position: absolute;
+            top: 52.5%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            width: 20px;
+            /* Adjusted size of the eye icon */
+        }
+        
         .form-content {
             width: 48%;
             /* Adjusted width for two columns */
@@ -140,8 +163,11 @@ if (isset($_POST["Login"])) {
         <div class="form-content">
             <label for="email">Email:</label>
             <input type="email" id="email" name="Email">
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="Password">
+            <div class="input-box">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="Password">
+                <img src="eye-close.png" id="eyeicon">
+            </div>
             <button type="submit" name="Login" value="Login">Login</button>
             <div class="form-links">
                 Don't have an account?<a href="index.html">Regjistrohu</a>
@@ -158,7 +184,20 @@ if (isset($_POST["Login"])) {
         alert("<?php echo $message; ?>");
     </script>
 <?php endif; ?>
+    <script>
+        let eyeicon = document.getElementById("eyeicon");
+        let password = document.getElementById("password");
 
+        eyeicon.onclick = function () {
+            if (password.type == "password") {
+                password.type = "text";
+                eyeicon.src = "eye-open.png"
+            } else {
+                password.type = "password";
+                eyeicon.src = "eye-close.png"
+            }
+        };
+    </script>
 </body>
 
 </html>
