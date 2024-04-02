@@ -155,6 +155,23 @@ if (isset($_POST["Login"])) {
             left: 20px;
             cursor: pointer;
         }
+        @media (max-width: 768px) {
+
+/* Adjust form width for smaller screens */
+form {
+    width: 50%;
+}
+
+.form-content {
+    width: 100%;
+    padding-right: 0;
+    /* Remove right padding for smaller screens */
+}
+
+.form-img {
+    display: none;
+}
+}
     </style>
 </head>
 

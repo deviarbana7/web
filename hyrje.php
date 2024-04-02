@@ -90,7 +90,7 @@ if (isset($_SESSION['user'])) {
         <div class="navbar-links">
             <a href="#">Home</a>
             <a href="#">About</a>
-            <a href="#">Contact</a>
+            <a href="contact.php">Contact</a>
         </div>
         <div id="user-options" class="hidden">
             <div class="navbar-avatar">
