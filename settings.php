@@ -1,14 +1,3 @@
-<?php
-require("lidhje.php");
-session_start(); // Start session
-
-$isLoggedIn = false; // Default value for login status
-
-// Check if session variable is set to indicate user is logged in
-if (isset($_SESSION['user'])) {
-    $isLoggedIn = true;
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,29 +6,28 @@ if (isset($_SESSION['user'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <title>Contact</title>
+    <title>Faqe</title>
     <style>
- /* Hide the default scrollbar */
-body::-webkit-scrollbar {
-    width: 8px; /* Width of the scrollbar */
-}
+        /* Hide the default scrollbar */
+        body::-webkit-scrollbar {
+            width: 8px; /* Width of the scrollbar */
+        }
 
-/* Track */
-body::-webkit-scrollbar-track {
-    background: #333; /* Color of the scrollbar track, matching the navbar background color */
-}
+        /* Track */
+        body::-webkit-scrollbar-track {
+            background: #333; /* Color of the scrollbar track, matching the navbar background color */
+        }
 
-/* Handle */
-body::-webkit-scrollbar-thumb {
-    background: #888; /* Color of the scrollbar handle */
-    border-radius: 6px; /* Rounded corners for the scrollbar handle */
-}
+        /* Handle */
+        body::-webkit-scrollbar-thumb {
+            background: #888; /* Color of the scrollbar handle */
+            border-radius: 6px; /* Rounded corners for the scrollbar handle */
+        }
 
-/* Handle on hover */
-body::-webkit-scrollbar-thumb:hover {
-    background: #555; /* Color of the scrollbar handle on hover */
-}
-
+        /* Handle on hover */
+        body::-webkit-scrollbar-thumb:hover {
+            background: #555; /* Color of the scrollbar handle on hover */
+        }
 
         /* styles.css */
         body {
@@ -87,6 +75,7 @@ body::-webkit-scrollbar-thumb:hover {
             /* Ensures dropdown is on top of other content */
             flex-direction: column; /* Change direction to vertical */
         }
+
         .avatar-dropdown a {
             display: block;
             padding: 10px;
@@ -119,6 +108,7 @@ body::-webkit-scrollbar-thumb:hover {
             justify-content: center;
             align-items: center;
             height: 100vh;
+            flex-direction: column;
         }
 
         .form {
@@ -127,6 +117,7 @@ body::-webkit-scrollbar-thumb:hover {
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 30px 30px -30px rgba(27, 26, 26, 0.315);
+            margin-bottom: 20px;
         }
 
         .form .title {
@@ -139,18 +130,13 @@ body::-webkit-scrollbar-thumb:hover {
             text-align: center;
         }
 
-        .form input,
-        .form textarea {
+        .form input {
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
             box-sizing: border-box;
-        }
-
-        .form textarea {
-            height: 100px;
         }
 
         .form button {
@@ -194,19 +180,19 @@ body::-webkit-scrollbar-thumb:hover {
                 <img src="avatar2.png" alt="Avatar">
                 <div class="avatar-dropdown">
                     <a href="#">Profile</a>
-                    <a href="#">Settings</a>
+                    <a href="settings.php">Settings</a>
                     <a href="logout.php">Sign Out</a>
                 </div>
             </div>
         </div>
     </nav>
+
     <div class="form-container">
-        <form action="https://api.web3forms.com/submit" method="POST" class="form">
-            <div class="title">Contact us</div>
-            <input type="hidden" name="access_key" value="11786ee1-23d0-4a38-b793-e10b89c77ee1">
-            <input type="text" name="name" placeholder="Full Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <textarea name="message" placeholder="Your message" required></textarea>
+        <form action="change_password.php" method="POST" class="form">
+            <div class="title">Change Password</div>
+            <input type="password" name="current_password" placeholder="Current Password" required>
+            <input type="password" name="new_password" placeholder="New Password" required>
+            <input type="password" name="confirm_password" placeholder="Confirm New Password" required>
             <button type="submit">Submit</button>
         </form>
     </div>

@@ -19,6 +19,27 @@ if (isset($_SESSION['user'])) {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Faqe</title>
     <style>
+    /* Hide the default scrollbar */
+body::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+}
+
+/* Track */
+body::-webkit-scrollbar-track {
+    background: #333; /* Color of the scrollbar track, matching the navbar background color */
+}
+
+/* Handle */
+body::-webkit-scrollbar-thumb {
+    background: #888; /* Color of the scrollbar handle */
+    border-radius: 6px; /* Rounded corners for the scrollbar handle */
+}
+
+/* Handle on hover */
+body::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Color of the scrollbar handle on hover */
+}
+
         /* styles.css */
         body {
             margin: 0;
@@ -56,13 +77,25 @@ if (isset($_SESSION['user'])) {
 
         .avatar-dropdown {
             position: absolute;
-            top: 50px;
+            top: 63px;
             right: 0;
             background-color: #333;
             min-width: 120px;
             display: none;
             z-index: 1;
             /* Ensures dropdown is on top of other content */
+            flex-direction: column; /* Change direction to vertical */
+        }
+        .avatar-dropdown a {
+            display: block;
+            padding: 10px;
+            color: #fff;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .avatar-dropdown a:hover {
+            background-color: #555;
         }
 
         .navbar-avatar:hover .avatar-dropdown,
@@ -94,7 +127,7 @@ if (isset($_SESSION['user'])) {
         </div>
         <div id="user-options" class="hidden">
             <div class="navbar-avatar">
-                <img src="avatar.jpg" alt="Avatar">
+                <img src="avatar2.png" alt="Avatar">
                 <div class="avatar-dropdown">
                     <a href="#">Profile</a>
                     <a href="#">Settings</a>
@@ -108,20 +141,40 @@ if (isset($_SESSION['user'])) {
 </div>
 <div id="user-options"<?php if (!$isLoggedIn) { echo ' class="hidden"'; } ?>>
     <div class="navbar-avatar">
-        <img src="avatar.jpg" alt="Avatar">
+        <img src="avatar2.png" alt="Avatar">
         <div class="avatar-dropdown">
             <a href="#">Profile</a>
-            <a href="#">Settings</a>
+            <a href="settings.php">Settings</a>
             <a href="logout.php">Sign Out</a>
         </div>
     </div>
 </div>
     </nav>
-
+    <a href="settings.php"><button>Settings</button></a>
     <a href="logout.php" class="btn btn-warning">Logout</a>
 
     <script>
 
+   document.addEventListener('DOMContentLoaded', function() {
+    // Get the dropdown menu
+    var dropdown = document.querySelector('.avatar-dropdown');
+
+    // Get the avatar
+    var avatar = document.querySelector('.navbar-avatar');
+
+    // When the user clicks on the avatar, toggle the dropdown
+    avatar.addEventListener('click', function(event) {
+        event.stopPropagation(); // Prevent the click event from bubbling up
+        dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+    });
+
+    // When the user clicks anywhere outside of the dropdown, close it
+    window.addEventListener('click', function(event) {
+        if (!event.target.closest('.navbar-avatar')) {
+            dropdown.style.display = 'none';
+        }
+    });
+});
         document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("signin-btn").addEventListener("click", function () {
                 // Redirect to login.php
