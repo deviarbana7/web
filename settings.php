@@ -1,3 +1,14 @@
+<?php
+require("lidhje.php");
+session_start(); // Start session
+
+$isLoggedIn = false; // Default value for login status
+
+// Check if session variable is set to indicate user is logged in
+if (isset($_SESSION['user'])) {
+    $isLoggedIn = true;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,6 +46,19 @@
             font-family: Arial, sans-serif;
         }
 
+.input-box {
+            position: relative;
+            width: 100%;
+        }
+        .input-box img {
+            position: absolute;
+            top: 40%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            width: 20px;
+            /* Adjusted size of the eye icon */
+        }
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -190,14 +214,61 @@
     <div class="form-container">
         <form action="change_password.php" method="POST" class="form">
             <div class="title">Change Password</div>
-            <input type="password" name="current_password" placeholder="Current Password" required>
-            <input type="password" name="new_password" placeholder="New Password" required>
-            <input type="password" name="confirm_password" placeholder="Confirm New Password" required>
+            <div class="input-box">
+                <input type="password" id="password" name="Password" placeholder="Current Password"
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}"
+                    title="Password must contain at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one symbol"
+                    required>
+                <img src="eyeclose.png" id="eyeicon1">
+            </div>
+            <div class="input-box">
+                <input type="password" id="new-password" name="Password" placeholder="New Password"
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}"
+                    title="Password must contain at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one symbol"
+                    required>
+                <img src="eyeclose.png" id="eyeicon2">
+            </div>
+            <div class="input-box">
+                <input type="password" id="repeat-password" name="Password" placeholder="Repeat New Password"
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}"
+                    title="Password must contain at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one symbol"
+                    required>
+                <img src="eyeclose.png" id="eyeicon3">
+            </div>
             <button type="submit">Submit</button>
         </form>
     </div>
 
     <script>
+    let eyeicon1 = document.getElementById("eyeicon1");
+let eyeicon2 = document.getElementById("eyeicon2");
+let eyeicon3 = document.getElementById("eyeicon3");
+
+let password1 = document.getElementById("password");
+let password2 = document.getElementById("new-password");
+let password3 = document.getElementById("repeat-password");
+
+eyeicon1.onclick = function () {
+    togglePasswordVisibility(password1, eyeicon1);
+};
+
+eyeicon2.onclick = function () {
+    togglePasswordVisibility(password2, eyeicon2);
+};
+
+eyeicon3.onclick = function () {
+    togglePasswordVisibility(password3, eyeicon3);
+};
+
+function togglePasswordVisibility(passwordInput, eyeIcon) {
+    if (passwordInput.type == "password") {
+        passwordInput.type = "text";
+        eyeIcon.src = "eyeopen.png";
+    } else {
+        passwordInput.type = "password";
+        eyeIcon.src = "eyeclose.png";
+    }
+}
         document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("signin-btn").addEventListener("click", function () {
                 // Redirect to login.php
