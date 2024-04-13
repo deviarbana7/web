@@ -121,8 +121,8 @@ body::-webkit-scrollbar-thumb:hover {
             <a href="#">Logo</a>
         </div>
         <div class="navbar-links">
-            <a href="#">Home</a>
-            <a href="#">About</a>
+            <a href="hyrje.php">Home</a>
+            <a href="users.php">Users</a>
             <a href="contact.php">Contact</a>
         </div>
         <div id="user-options" class="hidden">
