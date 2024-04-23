@@ -8,7 +8,81 @@ $isLoggedIn = false; // Default value for login status
 if (isset($_SESSION['user'])) {
     $isLoggedIn = true;
 }
+
+$password = "";
+$password_err = "";
+$message = "";
+
+if (isset($_POST["ID"]) && !empty($_POST["ID"])) {
+    // Get hidden input value
+    $id = $_POST["ID"];
+
+    $input_password = trim($_POST["Password"]);
+    if (empty($input_password)) {
+        $password_err = "Vendos Passwordin";
+    } else {
+        $password = $input_password;
+    }
+
+    if (empty($password_err)) {
+        // Prepare a select statement to fetch the current password
+        $sql_select = "SELECT Password FROM users WHERE ID = ?";
+        if ($stmt_select = mysqli_prepare($con, $sql_select)) {
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt_select, "i", $param_id);
+
+            // Set parameters
+            $param_id = $id;
+
+            // Attempt to execute the prepared statement
+            if (mysqli_stmt_execute($stmt_select)) {
+                $result = mysqli_stmt_get_result($stmt_select);
+                $row = mysqli_fetch_assoc($result);
+
+                // Check if the current password matches the one provided
+                if ($row && password_verify($password, $row['Password'])) {
+                    // Prepare an update statement to change the password
+                    $new_password = password_hash($_POST["newPassword"], PASSWORD_DEFAULT);
+                    $sql_update = "UPDATE users SET Password=? WHERE ID=?";
+
+                    if ($stmt_update = mysqli_prepare($con, $sql_update)) {
+                        // Bind variables to the prepared statement as parameters
+                        mysqli_stmt_bind_param($stmt_update, "si", $param_password, $param_id);
+
+                        // Set parameters
+                        $param_password = $new_password;
+                        $param_id = $id;
+
+                        // Attempt to execute the prepared statement
+                        if (mysqli_stmt_execute($stmt_update)) {
+                            $message = "Password successfully updated.";
+                        } else {
+                            $message = "Oops! Something went wrong. Please try again later.";
+                        }
+                    } else {
+                        $message = "Oops! Something went wrong. Please try again later.";
+                    }
+                } else {
+                    $message = "Current password is incorrect.";
+                }
+            } else {
+                $message = "Oops! Something went wrong. Please try again later.";
+            }
+        } else {
+            $message = "Oops! Something went wrong. Please try again later.";
+        }
+
+        // Close statement
+        mysqli_stmt_close($stmt_select);
+
+        // Close connection
+        mysqli_close($con);
+    }
+} else {
+    $message = "No ID provided.";
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -172,6 +246,16 @@ if (isset($_SESSION['user'])) {
             border-radius: 5px;
             cursor: pointer;
         }
+
+        .message {
+            color: red;
+            text-align: center;
+        }
+
+        .success-message {
+            color: green;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -214,22 +298,23 @@ if (isset($_SESSION['user'])) {
     <div class="form-container">
         <form action="change_password.php" method="POST" class="form">
             <div class="title">Change Password</div>
+            <div class="message"><?php echo $message; ?></div>
             <div class="input-box">
-                <input type="password" id="password" name="Password" placeholder="Current Password"
+                <input type="password" id="current-password" name="currentPassword" placeholder="Current Password"
                     pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}"
                     title="Password must contain at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one symbol"
                     required>
                 <img src="eyeclose.png" id="eyeicon1">
             </div>
             <div class="input-box">
-                <input type="password" id="new-password" name="Password" placeholder="New Password"
+                <input type="password" id="new-password" name="newPassword" placeholder="New Password"
                     pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}"
                     title="Password must contain at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one symbol"
                     required>
                 <img src="eyeclose.png" id="eyeicon2">
             </div>
             <div class="input-box">
-                <input type="password" id="repeat-password" name="Password" placeholder="Repeat New Password"
+                <input type="password" id="confirm-new-password" name="confirmNewPassword" placeholder="Confirm New Password"
                     pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}"
                     title="Password must contain at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one symbol"
                     required>
@@ -240,35 +325,36 @@ if (isset($_SESSION['user'])) {
     </div>
 
     <script>
-    let eyeicon1 = document.getElementById("eyeicon1");
-let eyeicon2 = document.getElementById("eyeicon2");
-let eyeicon3 = document.getElementById("eyeicon3");
+        let eyeicon1 = document.getElementById("eyeicon1");
+        let eyeicon2 = document.getElementById("eyeicon2");
+        let eyeicon3 = document.getElementById("eyeicon3");
 
-let password1 = document.getElementById("password");
-let password2 = document.getElementById("new-password");
-let password3 = document.getElementById("repeat-password");
+        let password1 = document.getElementById("current-password");
+        let password2 = document.getElementById("new-password");
+        let password3 = document.getElementById("confirm-new-password");
 
-eyeicon1.onclick = function () {
-    togglePasswordVisibility(password1, eyeicon1);
-};
+        eyeicon1.onclick = function () {
+            togglePasswordVisibility(password1, eyeicon1);
+        };
 
-eyeicon2.onclick = function () {
-    togglePasswordVisibility(password2, eyeicon2);
-};
+        eyeicon2.onclick = function () {
+            togglePasswordVisibility(password2, eyeicon2);
+        };
 
-eyeicon3.onclick = function () {
-    togglePasswordVisibility(password3, eyeicon3);
-};
+        eyeicon3.onclick = function () {
+            togglePasswordVisibility(password3, eyeicon3);
+        };
 
-function togglePasswordVisibility(passwordInput, eyeIcon) {
-    if (passwordInput.type == "password") {
-        passwordInput.type = "text";
-        eyeIcon.src = "eyeopen.png";
-    } else {
-        passwordInput.type = "password";
-        eyeIcon.src = "eyeclose.png";
-    }
-}
+        function togglePasswordVisibility(passwordInput, eyeIcon) {
+            if (passwordInput.type == "password") {
+                passwordInput.type = "text";
+                eyeIcon.src = "eyeopen.png";
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.src = "eyeclose.png";
+            }
+        }
+
         document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("signin-btn").addEventListener("click", function () {
                 // Redirect to login.php

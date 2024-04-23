@@ -148,8 +148,7 @@ if(isset($_POST["ID"]) && !empty($_POST["ID"])){
                         </div>
                         <div class="form-group">
                             <label>Mbiemri</label>
-                            <input type="text" name="Mbiemri" class="form-control <?php echo (!empty($mbiemri_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $mbiemri; ?>"
-
+                            <input type="text" name="Mbiemri" class="form-control <?php echo (!empty($mbiemri_err)) ? 'is-invalid' : ''; ?>" value= "<?php echo $mbiemri; ?>"
                             <span class="invalid-feedback"><?php echo $mbiemri_err;?></span>
                         </div>
                         <div class="form-group">
